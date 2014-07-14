@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>Minimal River.js Feed Reader</title>
+		<script src="http://fargo.io/code/jquery-1.9.1.min.js"></script>
+		<script>
+			var theRiver;
+			function onGetRiverStream (updatedFeeds) {
+				theRiver = updatedFeeds;
+        displayFeeds();
+				}
+			$.ajax ({ 
+				url: "http://rss.scripting.com/rivers/nytRiver.js",  
+				dataType: "jsonp"
+				});
+      function displayFeeds() {
+        var feedText = "";
+        // Create title
+        for (var i in theRiver.updatedFeeds.updatedFeed) {
+           feedText = feedText + theRiver.updatedFeeds.updatedFeed[i].feedTitle + " <a href=" + theRiver.updatedFeeds.updatedFeed[i].feedUrl + "> (Feed) " + "</a><br>"; 
+           feedText = feedText + "<a href=" + theRiver.updatedFeeds.updatedFeed[i].item[0].link + ">" + theRiver.updatedFeeds.updatedFeed[i].item[0].title + "</a><br>"; 
+           feedText = feedText + theRiver.updatedFeeds.updatedFeed[i].item[0].body + "<br>"; 
+           feedText = feedText + "<br>";
+        }
+	      document.getElementById("demo").innerHTML = feedText; 
+      }
+			</script>
+	</head>
+<body>
+    <h1><center>Minimal River.js Feed Reader</center></h1>
+    <p id="demo">Wating for feeds to load....</p> 
+</body>
+</html>
