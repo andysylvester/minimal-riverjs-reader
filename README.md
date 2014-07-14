@@ -10,14 +10,16 @@ Thanks to Dave Winer for his sample code that got me started!
 
 You can see the app running at http://andysylvester.com/files/reader/
 
+This <a href="http://andysylvester.com/2014/07/14/minimal-river-js-reader/">blog post</a> also talks about the app.
+
 Credits
 -------
 
 https://gist.github.com/scripting/75de472d0e3ccf183448 - Dave Winer starter code
+
 http://iviewsource.com/codingtutorials/getting-started-with-javascript-object-notation-json-for-absolute-beginners/ - JSON tutorial
+
 http://www.w3schools.com/json/json_eval.asp - Using JSON objects   
+
 http://api.jquery.com/jQuery.ajax/ - jQuery docs for the .ajax request handler
 
-This <a href="http://andysylvester.com/2014/07/14/minimal-river-js-reader/">blog post</a> also talks about the app.
-
- 
