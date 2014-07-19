@@ -3,30 +3,73 @@
 		<title>Minimal River.js Feed Reader</title>
 		<script src="http://fargo.io/code/jquery-1.9.1.min.js"></script>
 		<script>
-			var theRiver;
+		    var theRiver;
+			var searchtest;
 			function onGetRiverStream (updatedFeeds) {
 				theRiver = updatedFeeds;
-        displayFeeds();
-				}
+                displayFeeds();
+			}
+            // To read a different river file, update the Ajax call below    
 			$.ajax ({ 
 				url: "http://rss.scripting.com/rivers/nytRiver.js",  
 				dataType: "jsonp"
 				});
-      function displayFeeds() {
-        var feedText = "";
-        // Create title
-        for (var i in theRiver.updatedFeeds.updatedFeed) {
-           feedText = feedText + theRiver.updatedFeeds.updatedFeed[i].feedTitle + " <a href=" + theRiver.updatedFeeds.updatedFeed[i].feedUrl + "> (Feed) " + "</a><br>"; 
-           feedText = feedText + "<a href=" + theRiver.updatedFeeds.updatedFeed[i].item[0].link + ">" + theRiver.updatedFeeds.updatedFeed[i].item[0].title + "</a><br>"; 
-           feedText = feedText + theRiver.updatedFeeds.updatedFeed[i].item[0].body + "<br>"; 
-           feedText = feedText + "<br>";
-        }
-	      document.getElementById("demo").innerHTML = feedText; 
-      }
-			</script>
-	</head>
+            function displayFeeds() {
+			    var feedText = "";
+		        // Form a string (feedText) with each item title and body within the river and include a link to the feed
+                for (var i in theRiver.updatedFeeds.updatedFeed) {
+                    feedText = feedText + theRiver.updatedFeeds.updatedFeed[i].feedTitle + " <a href=" + theRiver.updatedFeeds.updatedFeed[i].feedUrl + "> (Feed) " + "</a><br>"; 
+                    feedText = feedText + "<a href=" + theRiver.updatedFeeds.updatedFeed[i].item[0].link + ">" + theRiver.updatedFeeds.updatedFeed[i].item[0].title + "</a><br>"; 
+                    feedText = feedText + theRiver.updatedFeeds.updatedFeed[i].item[0].body + "<br>"; 
+                    feedText = feedText + "<br>";
+                }
+			    // Update HTML element with contents of the river
+	            document.getElementById("demo").innerHTML = feedText; 
+            }
+	        function displayFilteredFeeds(source, name) {
+                var myRegExp = new RegExp('\\b' + name + '\\b', 'i')
+                var feedText = "";
+                var myTextTitle = "";
+                var myTextBody = "";
+                for (var i in source.updatedFeeds.updatedFeed) {
+                    myTextTitle = source.updatedFeeds.updatedFeed[i].item[0].title;
+                    if (myRegExp.test(myTextTitle)) {
+		               console.log(myTextTitle);
+		            }
+                    myTextBody = source.updatedFeeds.updatedFeed[i].item[0].body;
+                    if (myRegExp.test(myTextBody)) {
+		               console.log(myTextBody);
+		            }
+
+                    if ((myRegExp.test(myTextTitle)) || (myRegExp.test(myTextBody)) ) {
+		                feedText = feedText + theRiver.updatedFeeds.updatedFeed[i].feedTitle + " <a href=" + theRiver.updatedFeeds.updatedFeed[i].feedUrl + "> (Feed) " + "</a><br>"; 
+                        feedText = feedText + "<a href=" + theRiver.updatedFeeds.updatedFeed[i].item[0].link + ">" + theRiver.updatedFeeds.updatedFeed[i].item[0].title + "</a><br>"; 
+                        feedText = feedText + theRiver.updatedFeeds.updatedFeed[i].item[0].body + "<br>"; 
+                        feedText = feedText + "<br>";
+                    }
+                }
+	            document.getElementById("demo").innerHTML = feedText; 
+	        }
+            function checkForFilterTerm() {
+                var name_element = document.getElementById('mySearch');
+                searchtest = name_element.value;
+		        displayFilteredFeeds(theRiver, searchtest);
+            }
+	    </script>
+    </head>
 <body>
     <h1><center>Minimal River.js Feed Reader</center></h1>
+	<center>Load a sample river and enter a one word search term to filter the results</center>
+	<center>Credits: <a href="https://gist.github.com/scripting/75de472d0e3ccf183448">Dave Winer sample code</a> | Blog post: <a href="http://andysylvester.com/2014/07/14/minimal-river-js-reader/">Minimal River.js Reader</a> | Code: <a href="https://github.com/andysylvester/minimal-riverjs-reader">Github</a></center><br>
+
+    <center>	
+    <form name ="mySearch" id="mySearch_frm" action="#">
+        Enter a search term and click Submit: <input type="text" id="mySearch" name="searchterm">
+        <button onclick="checkForFilterTerm()">Submit</button>
+    </form>
+    </center>
+
     <p id="demo">Wating for feeds to load....</p> 
+
 </body>
 </html>
