@@ -24,3 +24,12 @@ http://www.w3schools.com/json/json_eval.asp - Using JSON objects
 http://api.jquery.com/jQuery.ajax/ - jQuery docs for the .ajax request handler
 
 http://riverjs.org/ - Website for river.js format
+
+Release history
+---------------
+
+0.10 - <a href="http://andysylvester.com/2014/07/14/minimal-river-js-reader/">Initial release</a>
+
+0.11 - <a href="http://andysylvester.com/2014/07/19/minimal-river-js-reader-version-0-11/">App update to add filtering</a>
+
+
